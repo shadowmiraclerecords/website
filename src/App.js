@@ -41,7 +41,10 @@ class App extends React.Component {
       successUrl:
         'https://shadowmiraclerecords.github.io/website/',
       cancelUrl:
-        'https://shadowmiraclerecords.github.io/website/'
+        'https://shadowmiraclerecords.github.io/website/',
+      shippingAddressCollection: {
+        allowedCountries: ['US'],
+      }
     }).then(this.handleStripeResult);
   };
 
