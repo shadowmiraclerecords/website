@@ -94,7 +94,7 @@ class App extends React.Component {
         <button role="link" onClick={handleClick}>
           Store
         </button>
-        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div><a href="https://soundcloud.com/user-739669201" title="The Prince Of Venus" target="_blank">The Prince Of Venus</a> · <a href="https://soundcloud.com/user-739669201/theres-another-way-to-love" title="There&#x27;s Another Way To Love" target="_blank">There&#x27;s Another Way To Love</a></div>
+        <iframe width="75%" height="127" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
       </header>
     </div>
     );
