@@ -13,6 +13,7 @@ class App extends React.Component {
     this.state = {
       results: "",
       disable: true,
+      display: true,
       email: "",
       total: 0,
       items: {}
@@ -35,6 +36,9 @@ class App extends React.Component {
       .post(api, data)
       .then((response) => {
         console.log(response);
+        if (response.request.status == 200) {
+          this.setState({display: false});
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -97,23 +101,36 @@ class App extends React.Component {
   }
 
   render() {
-    const { email, disable } = this.state;
+    const { email, disable, display } = this.state;
     const {
       handleClick,
       makeApiCall
     } = this;
-    return (
-      <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    let collection;
+    if (display) {
+      collection = <div>
+        Sign up to hear more:
         <form name="input">
           <input type="email" placeholder="email" name="email" value={email} onChange={this.changeHandler}></input>
         </form>
         <button id="testing" disabled={disable} onClick={makeApiCall}>Submit</button>
+      </div>
+    } else {
+      collection = <div>Thanks for your info</div>
+    }
+    return (
+      <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        {/* <form name="input">
+          <input type="email" placeholder="email" name="email" value={email} onChange={this.changeHandler}></input>
+        </form>
+        <button id="testing" disabled={disable} onClick={makeApiCall}>Submit</button> */}
+        {collection}
         {/* <button role="link" onClick={handleClick}>
           Store
         </button> */}
-        <iframe width="75%" height="127" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        <iframe width="75%" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
       </header>
     </div>
     );
