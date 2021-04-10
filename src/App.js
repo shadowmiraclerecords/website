@@ -2,21 +2,61 @@ import logo from './smr.png';
 import React from "react";
 import {loadStripe} from '@stripe/stripe-js';
 import './App.css';
-// import ReCAPTCHA from "react-google-recaptcha";
-
+import axios from 'axios';
+import * as EmailValidator from 'email-validator';
 var stripePromise = loadStripe('pk_test_51IWVXgLK0vLBTfXTBSMyEiRmQTzC14wWWTaKuJVoSvCeCeQtlHFWFSETdH0lebmaTg5UWAH01GZCqiWIYuWH4dzT00tjajonTm');
+
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       results: "",
+      disable: true,
+      email: "",
       total: 0,
       items: {}
     };
     this.updateTheTotal = this.updateTheTotal.bind(this);
     this.onChange = this.onChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.enableBtn = this.enableBtn.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.changeHandler = this.changeHandler.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
+    this.makeApiCall = this.makeApiCall.bind(this);
+  }
+
+  async makeApiCall() {
+    const email = this.state.email;
+    const api = 'http://ec2-54-237-79-92.compute-1.amazonaws.com/write';
+    const data = { "email" : email };
+    axios
+      .post(api, data)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  changeHandler = (e) => {
+    this.setState({[e.target.name] : e.target.value});
+    const valid = EmailValidator.validate(e.target.value);
+    // console.log(valid);
+    // console.log(e.target.value);
+    if (this.state.disable && valid) {
+      this.setState({disable: false});
+    }
+    if (!this.state.disable && !valid) {
+      this.setState({disable: true});
+    }
+  }
+
+  submitHandler = e => {
+    e.preventDefault();
+    console.log(this.state);
   }
 
   updateTheTotal() {
@@ -25,6 +65,10 @@ class App extends React.Component {
 
   onChange(value) {
     console.log("Captcha value:", value);
+  }
+
+  enableBtn(){
+    document.getElementById("button1").disabled = false;
   }
 
   handleClick = async () => {
@@ -48,53 +92,28 @@ class App extends React.Component {
     }).then(this.handleStripeResult);
   };
 
+  onSubmit(token) {
+    document.getElementById("demo-form").submit();
+  }
+
   render() {
+    const { email, disable } = this.state;
     const {
       handleClick,
-      updateTheTotal
+      makeApiCall
     } = this;
-    // const cloud = {
-      // font-size: "10px",
-      // color: "#cccccc",
-      // line-break: anywhere/
-      // word-break: normal
-      // overflow: "hidden"
-      // white-space: nowrap
-      // text-overflow: ellipsis
-      // font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif
-      // font-weight: 100
-    // };
     return (
       <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <form name="input" method="POST" action="https://formspree.io/f/xvovedjb">
-          Subscribe(: <input type="email" name="_replyto" placeholder="email">
-          </input>
-          <input type="submit" value="Send"></input>
-          {/* <ReCAPTCHA
-            // sitekey="6LfOLYUaAAAAAAb9C7HdYcjYSi4csM2IttV8Z4SK"
-            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-            // sitekey="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
-            onChange={onChange}
-          /> */}
+        <form name="input">
+          <input type="email" placeholder="email" name="email" value={email} onChange={this.changeHandler}></input>
         </form>
-        {/* <div className="container">
-          <img src={logo} alt="CDS" width="100" height="100"></img>
-          <br></br>
-          <button onClick={updateTheTotal}>
-            Add This To The Cart
-          </button>
-          <br></br>
-          <button>
-            Go To Checkout ${this.state.total}
-          </button>
-        </div> */}
-        <script src="https://js.stripe.com/v3/"></script>
-        <button role="link" onClick={handleClick}>
+        <button id="testing" disabled={disable} onClick={makeApiCall}>Submit</button>
+        {/* <button role="link" onClick={handleClick}>
           Store
-        </button>
-        <iframe width="75%" height="127" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        </button> */}
+        <iframe width="75%" height="127" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
       </header>
     </div>
     );
