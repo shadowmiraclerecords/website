@@ -36,7 +36,7 @@ class App extends React.Component {
       .post(api, data)
       .then((response) => {
         console.log(response);
-        if (response.request.status == 200) {
+        if (response.request.status === 200) {
           this.setState({display: false});
         }
       })
@@ -103,7 +103,7 @@ class App extends React.Component {
   render() {
     const { email, disable, display } = this.state;
     const {
-      handleClick,
+      // handleClick,
       makeApiCall
     } = this;
     let collection;
