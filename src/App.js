@@ -30,7 +30,7 @@ class App extends React.Component {
 
   async makeApiCall() {
     const email = this.state.email;
-    const api = 'http://ec2-54-237-79-92.compute-1.amazonaws.com/write';
+    const api = 'https://api.shadowmiraclerecords.com/write';
     const data = { "email" : email };
     axios
       .post(api, data)
