@@ -1,10 +1,10 @@
 import logo from './smr.png';
 import React from "react";
-import {loadStripe} from '@stripe/stripe-js';
+// import {loadStripe} from '@stripe/stripe-js';
 import './App.css';
 import axios from 'axios';
 import * as EmailValidator from 'email-validator';
-var stripePromise = loadStripe('pk_test_51IWVXgLK0vLBTfXTBSMyEiRmQTzC14wWWTaKuJVoSvCeCeQtlHFWFSETdH0lebmaTg5UWAH01GZCqiWIYuWH4dzT00tjajonTm');
+// var stripePromise = loadStripe('pk_test_51IWVXgLK0vLBTfXTBSMyEiRmQTzC14wWWTaKuJVoSvCeCeQtlHFWFSETdH0lebmaTg5UWAH01GZCqiWIYuWH4dzT00tjajonTm');
 
 
 class App extends React.Component {
@@ -16,16 +16,32 @@ class App extends React.Component {
       display: true,
       email: "",
       total: 0,
-      items: {}
+      items: {},
+      isDesktopDisplay: false
     };
+
     this.updateTheTotal = this.updateTheTotal.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
     this.enableBtn = this.enableBtn.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this.makeApiCall = this.makeApiCall.bind(this);
+    this.updateDisplayStyle = this.updateDisplayStyle.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateDisplayStyle();
+    window.addEventListener("resize", this.updateDisplayStyle)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDisplayStyle)
+  }
+
+  updateDisplayStyle() {
+    this.setState({isDesktopDisplay: window.innerWidth > 1450})
   }
 
   async makeApiCall() {
@@ -75,26 +91,26 @@ class App extends React.Component {
     document.getElementById("button1").disabled = false;
   }
 
-  handleClick = async () => {
-    // Get Stripe.js instance
-    const stripe = await stripePromise;
+  // handleClick = async () => {
+  //   // Get Stripe.js instance
+  //   const stripe = await stripePromise;
 
-    stripe.redirectToCheckout({
-      mode: "payment",
-      lineItems: [{ price: "price_1IWsTeLK0vLBTfXTLTnSRPph", quantity: 1 }],
-      // successUrl:
-      //   'success.html?session_id={CHECKOUT_SESSION_ID}',
-      // cancelUrl:
-      //   'canceled.html?session_id={CHECKOUT_SESSION_ID}',
-      successUrl:
-        'https://shadowmiraclerecords.github.io/website/',
-      cancelUrl:
-        'https://shadowmiraclerecords.github.io/website/',
-      shippingAddressCollection: {
-        allowedCountries: ['US'],
-      }
-    }).then(this.handleStripeResult);
-  };
+  //   stripe.redirectToCheckout({
+  //     mode: "payment",
+  //     lineItems: [{ price: "price_1IWsTeLK0vLBTfXTLTnSRPph", quantity: 1 }],
+  //     // successUrl:
+  //     //   'success.html?session_id={CHECKOUT_SESSION_ID}',
+  //     // cancelUrl:
+  //     //   'canceled.html?session_id={CHECKOUT_SESSION_ID}',
+  //     successUrl:
+  //       'https://shadowmiraclerecords.github.io/website/',
+  //     cancelUrl:
+  //       'https://shadowmiraclerecords.github.io/website/',
+  //     shippingAddressCollection: {
+  //       allowedCountries: ['US'],
+  //     }
+  //   }).then(this.handleStripeResult);
+  // };
 
   onSubmit(token) {
     document.getElementById("demo-form").submit();
@@ -130,7 +146,12 @@ class App extends React.Component {
         {/* <button role="link" onClick={handleClick}>
           Store
         </button> */}
-        <iframe width="75%" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        {/* {isDesktopDisplay ? (
+          <iframe title="There's Another Way To Love" width="75%" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        ): (
+          <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        )} */}
+        <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
       </header>
     </div>
     );
