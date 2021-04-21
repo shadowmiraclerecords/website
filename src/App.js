@@ -33,6 +33,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.updateDisplayStyle();
+    console.log('sweet');
     window.addEventListener("resize", this.updateDisplayStyle)
   }
 
@@ -41,7 +42,8 @@ class App extends React.Component {
   }
 
   updateDisplayStyle() {
-    this.setState({isDesktopDisplay: window.innerWidth > 1450})
+    console.log('awesome');
+    this.setState({isDesktopDisplay: window.innerWidth > 340})
   }
 
   async makeApiCall() {
@@ -117,12 +119,39 @@ class App extends React.Component {
   }
 
   render() {
-    const { email, disable, display } = this.state;
+    const { email, disable, display, isDesktopDisplay } = this.state;
     const {
       // handleClick,
       makeApiCall
     } = this;
     let collection;
+    let songs;
+    let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    // if (width > 442) {
+    //   songs = <div>
+    //     <iframe title="There's Another Way To Love" width="75%" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+    //     <iframe title="There's Another Way To Love" width="75%" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+    //   </div>
+    // }
+    // else {
+    //   songs = <div>
+    //     <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+    //     <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+    //   </div>
+    // }
+    if (isDesktopDisplay) {
+      songs = <div>
+        <iframe title="There's Another Way To Love" width="340" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        <br></br>
+        <iframe title="There's Another Way To Love" width="340" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+      </div>
+    }
+    else {
+      songs = <div>
+        <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+      </div>
+    }
     if (display) {
       collection = <div>
         Sign up to hear more:
@@ -142,7 +171,6 @@ class App extends React.Component {
           <input type="email" placeholder="email" name="email" value={email} onChange={this.changeHandler}></input>
         </form>
         <button id="testing" disabled={disable} onClick={makeApiCall}>Submit</button> */}
-        {collection}
         {/* <button role="link" onClick={handleClick}>
           Store
         </button> */}
@@ -151,7 +179,11 @@ class App extends React.Component {
         ): (
           <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
         )} */}
-        <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        {/* <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe> */}
+        {/* <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-739669201" title="The Prince Of Venus" target="_blank" style="color: #cccccc; text-decoration: none;">The Prince Of Venus</a> · <a href="https://soundcloud.com/user-739669201/you-gonna-roll-the-weed-2" title="You Gonna Roll The Weed?" target="_blank" style="color: #cccccc; text-decoration: none;">You Gonna Roll The Weed?</a></div> */}
+        {songs}
+        {collection}
       </header>
     </div>
     );
