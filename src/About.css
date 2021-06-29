@@ -1,0 +1,108 @@
+.About-app {
+  text-align: center;
+  /* background-color: #282c34; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.About-top {
+  display: flex;
+  /* margin-top: 1%; */
+  /* flex-direction: column; */
+}
+
+.About-bio {
+  font-size: 1.8vw;
+  text-align: left;
+  margin: 0;
+}
+
+.About-profile {
+  height: 40vmin;
+  pointer-events: none;
+  margin-bottom: 10px;
+}
+
+.About-works {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.About-album {
+  height: 40vmin;
+  pointer-events: none;
+  margin-bottom: 10px;
+}
+
+.About-music {
+  display: flex;
+  flex-direction: column;
+}
+
+.About-title {
+  font-size: 4.2vw;
+  margin: 0px;
+}
+
+.About-songs {
+  /* text-decoration: none; */
+  color: white;
+  font-size: 2.5vw;
+}
+
+.About-connect {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.About-media {
+  display: flex;
+  flex-direction: column;
+}
+
+.About-socials {
+  display: flex;
+  /* flex-direction: column; */
+}
+
+.About-insta {
+  margin: 12px;
+  width: 75px;
+  height: 75px;
+}
+
+.About-cloud {
+  width: 100px;
+  height: 100px;
+}
+
+.About-shows {
+  display: flex;
+  flex-direction: column;
+}
+
+.About-venue {
+  font-size: 30px;
+}
+
+.About-contact {
+  display: flex;
+  flex-direction: column;
+}
+
+.About-phone {
+  font-size: 30px;
+  color: white;
+}
+
+.About-email {
+  font-size: 30px;
+  color: white;
+}

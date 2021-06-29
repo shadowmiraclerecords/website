@@ -7,6 +7,10 @@ import * as EmailValidator from 'email-validator';
 // var stripePromise = loadStripe('pk_test_51IWVXgLK0vLBTfXTBSMyEiRmQTzC14wWWTaKuJVoSvCeCeQtlHFWFSETdH0lebmaTg5UWAH01GZCqiWIYuWH4dzT00tjajonTm');
 
 
+import Landing from './Landing';
+import About from './About';
+import { Link, Switch, Route } from 'react-router-dom';
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -17,7 +21,8 @@ class App extends React.Component {
       email: "",
       total: 0,
       items: {},
-      isDesktopDisplay: false
+      isDesktopDisplay: false,
+      route: 'landing'
     };
 
     this.updateTheTotal = this.updateTheTotal.bind(this);
@@ -164,28 +169,16 @@ class App extends React.Component {
       collection = <div>Thanks for your info</div>
     }
     return (
-      <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {/* <form name="input">
-          <input type="email" placeholder="email" name="email" value={email} onChange={this.changeHandler}></input>
-        </form>
-        <button id="testing" disabled={disable} onClick={makeApiCall}>Submit</button> */}
-        {/* <button role="link" onClick={handleClick}>
-          Store
-        </button> */}
-        {/* {isDesktopDisplay ? (
-          <iframe title="There's Another Way To Love" width="75%" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-        ): (
-          <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-        )} */}
-        {/* <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-        <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe> */}
-        {/* <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-739669201" title="The Prince Of Venus" target="_blank" style="color: #cccccc; text-decoration: none;">The Prince Of Venus</a> · <a href="https://soundcloud.com/user-739669201/you-gonna-roll-the-weed-2" title="You Gonna Roll The Weed?" target="_blank" style="color: #cccccc; text-decoration: none;">You Gonna Roll The Weed?</a></div> */}
-        {songs}
-        {collection}
-      </header>
-    </div>
+      // <div className="App">
+        <Switch>
+          <Route exact path="/">
+            <Landing />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+        </Switch>
+      // </div>
     );
   }
 }
