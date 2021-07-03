@@ -1,13 +1,13 @@
-import logo from './smr.png';
+import smr from './smr.png';
 import React from "react";
-// import {loadStripe} from '@stripe/stripe-js';
-import './App.css';
+import './Landing.css';
 import axios from 'axios';
 import * as EmailValidator from 'email-validator';
+// import {loadStripe} from '@stripe/stripe-js';
 // var stripePromise = loadStripe('pk_test_51IWVXgLK0vLBTfXTBSMyEiRmQTzC14wWWTaKuJVoSvCeCeQtlHFWFSETdH0lebmaTg5UWAH01GZCqiWIYuWH4dzT00tjajonTm');
 
 
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Landing extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Landing extends React.Component {
       email: "",
       total: 0,
       items: {},
-      isDesktopDisplay: false
+      isSmallDisplay: false
     };
 
     this.updateTheTotal = this.updateTheTotal.bind(this);
@@ -45,7 +45,7 @@ class Landing extends React.Component {
 
   updateDisplayStyle() {
     console.log('awesome');
-    this.setState({isDesktopDisplay: window.innerWidth > 340})
+    this.setState({isSmallDisplay: window.innerWidth < 552})
   }
 
   async makeApiCall() {
@@ -121,69 +121,48 @@ class Landing extends React.Component {
   }
 
   render() {
-    const { email, disable, display, isDesktopDisplay } = this.state;
+    const { email, disable, display, isSmallDisplay } = this.state;
     const {
       // handleClick,
       makeApiCall
     } = this;
     let collection;
     let songs;
-    let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    // if (width > 442) {
-    //   songs = <div>
-    //     <iframe title="There's Another Way To Love" width="75%" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-    //     <iframe title="There's Another Way To Love" width="75%" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-    //   </div>
-    // }
-    // else {
-    //   songs = <div>
-    //     <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-    //     <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-    //   </div>
-    // }
-    if (isDesktopDisplay) {
-      songs = <div>
-        <iframe title="There's Another Way To Love" width="340" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-        <br></br>
-        <iframe title="There's Another Way To Love" width="340" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-      </div>
+    if (isSmallDisplay) {
+      songs =
+        <div>
+          <iframe className="Landing-smaller" title="Alright" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1068004219&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+          <br></br>
+          <iframe className="Landing-smaller" title="You Gonna Roll The Weed?" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+          <br></br>
+          <iframe className="Landing-smaller" title="There&#x27;s Another Way To Love" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        </div>
     }
     else {
-      songs = <div>
-        <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-        <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-      </div>
+      songs =
+        <div>
+          <iframe className="Landing-track" title="Alright" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1068004219&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+          <br></br>
+          <iframe className="Landing-track" title="You Gonna Roll The Weed?" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+          <br></br>
+          <iframe className="Landing-track" title="There&#x27;s Another Way To Love" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+        </div>
     }
     if (display) {
-      collection = <div>
-        Sign up to hear more:
+      collection = <div className="Landing-collection">
+        Sign Up To Hear More:
         <form name="input">
-          <input type="email" placeholder="email" name="email" value={email} onChange={this.changeHandler}></input>
+          <input className="Landing-input" type="email" placeholder="your@email.com" name="email" value={email} onChange={this.changeHandler}></input>
         </form>
-        <button id="testing" disabled={disable} onClick={makeApiCall}>Submit</button>
+        <button className="Landing-confirm" id="testing" disabled={disable} onClick={makeApiCall}>Submit</button>
       </div>
     } else {
-      collection = <div>Thanks for your info</div>
+      collection = <div className="Landing-gracias">Gracias</div>
     }
     return (
-      <div className="App">
-        {/* <Link className="App-link" to="/about">About The Artist</Link> */}
-        <img src={logo} className="App-logo" alt="logo" />
-        {/* <form name="input">
-          <input type="email" placeholder="email" name="email" value={email} onChange={this.changeHandler}></input>
-        </form>
-        <button id="testing" disabled={disable} onClick={makeApiCall}>Submit</button> */}
-        {/* <button role="link" onClick={handleClick}>
-          Store
-        </button> */}
-        {/* {isDesktopDisplay ? (
-          <iframe title="There's Another Way To Love" width="75%" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-        ): (
-          <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-        )} */}
-        {/* <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
-        <iframe title="There's Another Way To Love" width="320" height="160" scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1000565353&color=%23080808&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe> */}
-        {/* <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1033494595&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-739669201" title="The Prince Of Venus" target="_blank" style="color: #cccccc; text-decoration: none;">The Prince Of Venus</a> · <a href="https://soundcloud.com/user-739669201/you-gonna-roll-the-weed-2" title="You Gonna Roll The Weed?" target="_blank" style="color: #cccccc; text-decoration: none;">You Gonna Roll The Weed?</a></div> */}
+      <div className="Landing-app">
+        <Link className="Landing-learn" to="/ranesartistepk">About The Artist</Link>
+        <img src={smr} className="Landing-image" alt="smr" />
         {songs}
         {collection}
       </div>
